@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:orientation="vertical">
+
+            <com.blue.view.CommonShapeButton
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="文本样式+填充颜色+圆角"
+                android:textColor="#fff"
+                app:csb_cornerRadius="50dp"
+                app:csb_fillColor="#00bc71" />
+
+            <com.blue.view.CommonShapeButton
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="文本样式+水波纹+填充颜色+描边"
+                android:textColor="#fff"
+                app:csb_activeEnable="true"
+                app:csb_fillColor="#00bc71"
+                app:csb_strokeColor="#000"
+                app:csb_strokeWidth="1dp" />
+
+            <com.blue.view.CommonShapeButton
+                style="@style/CommonShapeButtonStyle"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="按钮样式+水波纹+左右渐变"
+                android:textColor="#fff"
+                app:csb_activeEnable="true"
+                app:csb_endColor="#00bc71"
+                app:csb_orientation="LEFT_RIGHT"
+                app:csb_startColor="#8800bc71" />
+
+            <com.blue.view.CommonShapeButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="椭圆"
+                android:textColor="#fff"
+                app:csb_fillColor="#00bc71"
+                app:csb_shapeMode="oval" />
+
+            <Button
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:drawableLeft="@drawable/ic_changebtn_change"
+                android:text="默认按钮图标无法居中"
+                android:textColor="#808080"
+                android:textSize="11dp" />
+
+            <com.blue.view.CommonShapeButton
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:drawableLeft="@drawable/ic_changebtn_change"
+                android:text="带图标样式居中"
+                android:textColor="#808080"
+                android:textSize="11dp"
+                app:csb_cornerRadius="50dp"
+                app:csb_drawablePosition="left"
+                app:csb_strokeColor="#e6e6e6"
+                app:csb_strokeWidth="0.5dp" />
+
+            <com.blue.view.CommonShapeButton
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:drawableRight="@drawable/ic_changebtn_change"
+                android:text="带图标样式居中"
+                android:textColor="#808080"
+                android:textSize="11dp"
+                app:csb_cornerRadius="50dp"
+                app:csb_drawablePosition="right"
+                app:csb_strokeColor="#e6e6e6"
+                app:csb_strokeWidth="0.5dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.blue.view.CommonShapeButton
+                    android:id="@+id/btn"
+                    android:layout_width="50dp"
+                    android:layout_height="130dp"
+                    android:layout_margin="10dp"
+                    android:drawableTop="@drawable/ic_changebtn_change"
+                    android:text="带图标样式居中"
+                    android:textColor="#808080"
+                    android:textSize="11dp"
+                    app:csb_cornerRadius="50dp"
+                    app:csb_drawablePosition="top"
+                    app:csb_strokeColor="#e6e6e6"
+                    app:csb_strokeWidth="0.5dp" />
+
+                <com.blue.view.CommonShapeButton
+                    android:id="@+id/btn2"
+                    android:layout_width="50dp"
+                    android:layout_height="130dp"
+                    android:layout_margin="10dp"
+                    android:layout_toRightOf="@+id/btn"
+                    android:drawableBottom="@drawable/ic_changebtn_change"
+                    android:text="带图标样式居中"
+                    android:textColor="#808080"
+                    android:textSize="11dp"
+                    app:csb_cornerRadius="50dp"
+                    app:csb_drawablePosition="bottom"
+                    app:csb_strokeColor="#e6e6e6"
+                    app:csb_strokeWidth="0.5dp" />
+
+                <com.blue.view.CommonShapeButton
+                    android:id="@+id/btn3"
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:layout_toRightOf="@+id/btn2"
+                    android:drawableTop="@drawable/ic_changebtn_change"
+                    android:text="带图标样式居中"
+                    android:textColor="#808080"
+                    android:textSize="11dp"
+                    app:csb_cornerRadius="50dp"
+                    app:csb_drawablePosition="top"
+                    app:csb_strokeColor="#e6e6e6"
+                    app:csb_strokeWidth="0.5dp" />
+
+                <com.blue.view.CommonShapeButton
+                    android:id="@+id/btn4"
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/btn3"
+                    android:layout_margin="10dp"
+                    android:layout_toRightOf="@+id/btn2"
+                    android:drawableBottom="@drawable/ic_changebtn_change"
+                    android:text="带图标样式居中"
+                    android:textColor="#808080"
+                    android:textSize="11dp"
+                    app:csb_cornerRadius="50dp"
+                    app:csb_drawablePosition="bottom"
+                    app:csb_strokeColor="#e6e6e6"
+                    app:csb_strokeWidth="0.5dp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>
