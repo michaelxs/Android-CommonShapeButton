@@ -26,10 +26,31 @@
                 app:csb_fillColor="#00bc71" />
 
             <com.blue.view.CommonShapeButton
+                style="@style/CommonShapeButtonStyle"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
-                android:text="文本样式+水波纹+填充颜色+描边"
+                android:text="按钮样式+填充颜色+圆角"
+                android:textColor="#fff"
+                app:csb_cornerRadius="50dp"
+                app:csb_fillColor="#00bc71" />
+
+            <com.blue.view.CommonShapeButton
+                style="@style/CommonShapeButtonStyle"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="按钮样式+水波纹+填充颜色+圆角"
+                android:textColor="#fff"
+                app:csb_activeEnable="true"
+                app:csb_cornerRadius="50dp"
+                app:csb_fillColor="#00bc71" />
+
+            <com.blue.view.CommonShapeButton
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="文本样式+填充颜色+描边"
                 android:textColor="#fff"
                 app:csb_activeEnable="true"
                 app:csb_fillColor="#00bc71"
@@ -37,11 +58,10 @@
                 app:csb_strokeWidth="1dp" />
 
             <com.blue.view.CommonShapeButton
-                style="@style/CommonShapeButtonStyle"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
-                android:text="按钮样式+水波纹+左右渐变"
+                android:text="文本样式+水波纹+左右渐变"
                 android:textColor="#fff"
                 app:csb_activeEnable="true"
                 app:csb_endColor="#00bc71"
@@ -55,7 +75,9 @@
                 android:text="椭圆"
                 android:textColor="#fff"
                 app:csb_fillColor="#00bc71"
-                app:csb_shapeMode="oval" />
+                app:csb_shapeMode="oval"
+                app:csb_strokeColor="#000"
+                app:csb_strokeWidth="1dp" />
 
             <Button
                 android:layout_width="180dp"
