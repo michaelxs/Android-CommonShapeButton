@@ -3,6 +3,8 @@
         <attr name="csb_shapeMode" format="enum">
             <enum name="rectangle" value="0" />
             <enum name="oval" value="1" />
+            <enum name="line" value="2" />
+            <enum name="ring" value="3" />
         </attr>
         <attr name="csb_fillColor" format="color" />
         <attr name="csb_pressedColor" format="color" />

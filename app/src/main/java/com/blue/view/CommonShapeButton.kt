@@ -27,7 +27,7 @@ class CommonShapeButton @JvmOverloads constructor(
 
     /**
      * shape模式
-     * 矩形（rectangle）、椭圆形(oval)
+     * 矩形（rectangle）、椭圆形(oval)、线形(line)、环形(ring)
      */
     private var mShapeMode = 0
 
@@ -137,6 +137,8 @@ class CommonShapeButton @JvmOverloads constructor(
             when (mShapeMode) {
                 0 -> shape = GradientDrawable.RECTANGLE
                 1 -> shape = GradientDrawable.OVAL
+                2 -> shape = GradientDrawable.LINE
+                3 -> shape = GradientDrawable.RING
             }
             cornerRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, mCornerRadius.toFloat(), resources.displayMetrics)
             // 默认的透明边框不绘制,否则会导致没有阴影
