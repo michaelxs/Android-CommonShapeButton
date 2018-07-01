@@ -155,7 +155,6 @@ class CommonShapeButton @JvmOverloads constructor(
             }
             // 5.0以下变色效果
             else {
-                isClickable = true
                 // 初始化pressed状态
                 with(pressedGradientDrawable) {
                     setColor(mPressedColor)
