@@ -1,6 +1,8 @@
 package com.blue.view
 
+import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
@@ -150,7 +152,7 @@ class CommonShapeButton @JvmOverloads constructor(
         // 是否开启点击动效
         background = if (mActiveEnable) {
             // 5.0以上水波纹效果
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 RippleDrawable(ColorStateList.valueOf(mPressedColor), normalGradientDrawable, null)
             }
             // 5.0以下变色效果
@@ -230,6 +232,7 @@ class CommonShapeButton @JvmOverloads constructor(
         gravity = Gravity.CENTER
         // 可点击
         isClickable = true
+        changeTintContextWrapperToActivity()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -239,5 +242,44 @@ class CommonShapeButton @JvmOverloads constructor(
             contentHeight > 0 && (mDrawablePosition == 1 || mDrawablePosition == 3) -> canvas.translate(0f, (height - contentHeight) / 2)
         }
         super.onDraw(canvas)
+    }
+
+    /**
+     * 从support23.3.0开始View中的getContext方法返回的是TintContextWrapper而不再是Activity
+     * 如果使用xml注册onClick属性，就会通过反射到Activity中去找对应的方法
+     * 5.0以下系统会反射到TintContextWrapper中去找对应的方法，程序直接crash
+     * 所以这里需要针对5.0以下系统单独处理View中的getContext返回值
+     */
+    private fun changeTintContextWrapperToActivity() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            getActivity()?.let {
+                var clazz: Class<*>? = this::class.java
+                while (clazz != null) {
+                    try {
+                        val field = clazz.getDeclaredField("mContext")
+                        field.isAccessible = true
+                        field.set(this, it)
+                        break
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                    clazz = clazz.superclass
+                }
+            }
+        }
+    }
+
+    /**
+     * 从context中得到真正的activity
+     */
+    private fun getActivity(): Activity? {
+        var context = context
+        while (context is ContextWrapper) {
+            if (context is Activity) {
+                return context
+            }
+            context = context.baseContext
+        }
+        return null
     }
 }
