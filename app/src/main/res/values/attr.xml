@@ -11,6 +11,12 @@
         <attr name="csb_strokeColor" format="color" />
         <attr name="csb_strokeWidth" format="dimension" />
         <attr name="csb_cornerRadius" format="dimension" />
+        <attr name="csb_cornerPosition">
+            <flag name="topLeft" value="1" />
+            <flag name="topRight" value="2" />
+            <flag name="bottomRight" value="4" />
+            <flag name="bottomLeft" value="8" />
+        </attr>
         <attr name="csb_activeEnable" format="boolean" />
         <attr name="csb_drawablePosition" format="enum">
             <enum name="left" value="0" />

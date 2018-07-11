@@ -27,6 +27,11 @@ class CommonShapeButton @JvmOverloads constructor(
         defStyleAttr: Int = 0
 ) : AppCompatButton(context, attrs, defStyleAttr) {
 
+    private val TOP_LEFT = 1
+    private val TOP_RIGHT = 2
+    private val BOTTOM_RIGHT = 4
+    private val BOTTOM_LEFT = 8
+
     /**
      * shape模式
      * 矩形（rectangle）、椭圆形(oval)、线形(line)、环形(ring)
@@ -57,6 +62,10 @@ class CommonShapeButton @JvmOverloads constructor(
      * 圆角半径
      */
     private var mCornerRadius = 0
+    /**
+     * 圆角位置
+     */
+    private var mCornerPosition = 0
 
     /**
      * 点击动效
@@ -111,6 +120,7 @@ class CommonShapeButton @JvmOverloads constructor(
             mStrokeColor = getColor(R.styleable.CommonShapeButton_csb_strokeColor, Color.parseColor("#00000000"))
             mStrokeWidth = getDimensionPixelSize(R.styleable.CommonShapeButton_csb_strokeWidth, 0)
             mCornerRadius = getDimensionPixelSize(R.styleable.CommonShapeButton_csb_cornerRadius, 0)
+            mCornerPosition = getInt(R.styleable.CommonShapeButton_csb_cornerPosition, -1)
             mActiveEnable = getBoolean(R.styleable.CommonShapeButton_csb_activeEnable, false)
             mDrawablePosition = getInt(R.styleable.CommonShapeButton_csb_drawablePosition, -1)
             mStartColor = getColor(R.styleable.CommonShapeButton_csb_startColor, Color.parseColor("#FFFFFF"))
@@ -142,7 +152,14 @@ class CommonShapeButton @JvmOverloads constructor(
                 2 -> shape = GradientDrawable.LINE
                 3 -> shape = GradientDrawable.RING
             }
-            cornerRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, mCornerRadius.toFloat(), resources.displayMetrics)
+            // 统一设置圆角半径
+            if (mCornerPosition == -1) {
+                cornerRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, mCornerRadius.toFloat(), resources.displayMetrics)
+            }
+            // 根据圆角位置设置圆角半径
+            else {
+                cornerRadii = getCornerRadiusByPosition()
+            }
             // 默认的透明边框不绘制,否则会导致没有阴影
             if (mStrokeColor != Color.parseColor("#00000000")) {
                 setStroke(mStrokeWidth, mStrokeColor)
@@ -281,5 +298,37 @@ class CommonShapeButton @JvmOverloads constructor(
             context = context.baseContext
         }
         return null
+    }
+
+    /**
+     * 根据圆角位置获取圆角半径
+     */
+    private fun getCornerRadiusByPosition(): FloatArray {
+        val result = floatArrayOf(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f)
+        val cornerRadius = mCornerRadius / 2.toFloat()
+        if (containsFlag(mCornerPosition, TOP_LEFT)) {
+            result[0] = cornerRadius
+            result[1] = cornerRadius
+        }
+        if (containsFlag(mCornerPosition, TOP_RIGHT)) {
+            result[2] = cornerRadius
+            result[3] = cornerRadius
+        }
+        if (containsFlag(mCornerPosition, BOTTOM_RIGHT)) {
+            result[4] = cornerRadius
+            result[5] = cornerRadius
+        }
+        if (containsFlag(mCornerPosition, BOTTOM_LEFT)) {
+            result[6] = cornerRadius
+            result[7] = cornerRadius
+        }
+        return result
+    }
+
+    /**
+     * 是否包含对应flag
+     */
+    private fun containsFlag(flagSet: Int, flag: Int): Boolean {
+        return flagSet or flag == flagSet
     }
 }
