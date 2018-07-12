@@ -63,3 +63,5 @@ Button style
     app:csb_strokeColor="#000"
     app:csb_strokeWidth="1dp" />
 ```
+## License
+[Document transfer door](https://opensource.org/licenses/Apache-2.0)
