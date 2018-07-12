@@ -38,7 +38,7 @@ To remove all shape files from the project, provide a generic shape style button
 </declare-styleable>
 ```
 ## How to use
-text style
+Text style
 ```xml
 <com.blue.view.CommonShapeButton
     android:layout_width="300dp"
@@ -49,4 +49,17 @@ text style
     app:csb_cornerRadius="50dp"
     app:csb_fillColor="#00bc71" />
 ```
-button style
+Button style
+```xml
+<com.blue.view.CommonShapeButton
+    style="@style/CommonShapeButtonStyle"
+    android:layout_width="300dp"
+    android:layout_height="50dp"
+    android:layout_margin="10dp"
+    android:text="button+fill+stroke+ripple"
+    android:textColor="#fff"
+    app:csb_activeEnable="true"
+    app:csb_fillColor="#00bc71"
+    app:csb_strokeColor="#000"
+    app:csb_strokeWidth="1dp" />
+```
