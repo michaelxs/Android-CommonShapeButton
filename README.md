@@ -1,7 +1,6 @@
 # CommonShapeButton
-[中文文档传送门](https://blog.csdn.net/xsxsxs827/article/details/80708637)
-## Introduce
-To remove all shape files from the project, provide a generic shape style button.
+[中文文档传送门](https://blog.csdn.net/xsxsxs827/article/details/80708637)<br>
+To remove all shape files from the project, provide a generic shape style button.<br>
 ![](https://github.com/michaelxs/CommonShapeButton/blob/master/screenshots/show.gif)
 ## Custom attribute
 ```xml
