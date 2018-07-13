@@ -1,6 +1,6 @@
 # CommonShapeButton
 [Document transfer door](https://blog.csdn.net/xsxsxs827/article/details/80708637)<br>
-To remove all shape files from the project, provide a generic shape style button.<br>
+To remove all shape files from the project, provide a generic shape style button.<br><br>
 ![](https://github.com/michaelxs/CommonShapeButton/blob/master/screenshots/show.gif)<br>
 ## Custom attribute
 ```xml
