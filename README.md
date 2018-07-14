@@ -1,5 +1,5 @@
 # CommonShapeButton
-[[点击查看中文版]](https://blog.csdn.net/xsxsxs827/article/details/80708637)<p>
+[[点击查看中文版]](https://www.jianshu.com/p/8be99ce68780)<p>
 To remove all shape files from the project, provide a generic shape style button.<p>
 ![](https://github.com/michaelxs/CommonShapeButton/blob/master/screenshots/show.gif)
 ## Attribute
