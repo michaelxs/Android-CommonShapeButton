@@ -2,7 +2,7 @@
 [[点击查看中文版]](https://blog.csdn.net/xsxsxs827/article/details/80708637)<p>
 To remove all shape files from the project, provide a generic shape style button.<p>
 ![](https://github.com/michaelxs/CommonShapeButton/blob/master/screenshots/show.gif)
-## Custom attribute
+## Attribute
 ```xml
 <declare-styleable name="CommonShapeButton">
     <attr name="csb_shapeMode" format="enum">
@@ -37,7 +37,7 @@ To remove all shape files from the project, provide a generic shape style button
     </attr>
 </declare-styleable>
 ```
-## How to use
+## Usage
 Text style
 ```xml
 <com.blue.view.CommonShapeButton
