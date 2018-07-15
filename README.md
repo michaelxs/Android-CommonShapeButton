@@ -1,7 +1,7 @@
 # CommonShapeButton
 [[点击查看中文版]](https://www.jianshu.com/p/4b20502f2692)<p>
 To remove all shape files from the project, provide a generic shape style button.<p>
-[![API](https://img.shields.io/badge/API-9%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14) [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/whataa/pandora-no-op/blob/master/LICENSE)<p>
+[![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14) [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/whataa/pandora-no-op/blob/master/LICENSE)<p>
 ![](https://github.com/michaelxs/CommonShapeButton/blob/master/screenshots/show.gif)
 ## Attribute
 ```xml
