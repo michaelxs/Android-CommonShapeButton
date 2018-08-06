@@ -64,8 +64,9 @@ class CommonShapeButton @JvmOverloads constructor(
     private var mCornerRadius = 0
     /**
      * 圆角位置
+     * topLeft、topRight、bottomRight、bottomLeft
      */
-    private var mCornerPosition = 0
+    private var mCornerPosition = -1
 
     /**
      * 点击动效
