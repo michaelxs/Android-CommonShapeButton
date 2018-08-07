@@ -306,7 +306,7 @@ class CommonShapeButton @JvmOverloads constructor(
      */
     private fun getCornerRadiusByPosition(): FloatArray {
         val result = floatArrayOf(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f)
-        val cornerRadius = mCornerRadius / 2.toFloat()
+        val cornerRadius = mCornerRadius.toFloat()
         if (containsFlag(mCornerPosition, TOP_LEFT)) {
             result[0] = cornerRadius
             result[1] = cornerRadius
