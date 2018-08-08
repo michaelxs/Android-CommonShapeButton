@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.ColorStateList
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
@@ -17,7 +16,6 @@ import android.util.TypedValue
 import android.view.Gravity
 import com.blue.R
 
-
 /**
  * 通用shape样式按钮
  */
@@ -27,10 +25,12 @@ class CommonShapeButton @JvmOverloads constructor(
         defStyleAttr: Int = 0
 ) : AppCompatButton(context, attrs, defStyleAttr) {
 
-    private val TOP_LEFT = 1
-    private val TOP_RIGHT = 2
-    private val BOTTOM_RIGHT = 4
-    private val BOTTOM_LEFT = 8
+    private companion object {
+        val TOP_LEFT = 1
+        val TOP_RIGHT = 2
+        val BOTTOM_RIGHT = 4
+        val BOTTOM_LEFT = 8
+    }
 
     /**
      * shape模式
@@ -64,9 +64,8 @@ class CommonShapeButton @JvmOverloads constructor(
     private var mCornerRadius = 0
     /**
      * 圆角位置
-     * topLeft、topRight、bottomRight、bottomLeft
      */
-    private var mCornerPosition = -1
+    private var mCornerPosition = 0
 
     /**
      * 点击动效
@@ -116,16 +115,16 @@ class CommonShapeButton @JvmOverloads constructor(
     init {
         context.obtainStyledAttributes(attrs, R.styleable.CommonShapeButton).apply {
             mShapeMode = getInt(R.styleable.CommonShapeButton_csb_shapeMode, 0)
-            mFillColor = getColor(R.styleable.CommonShapeButton_csb_fillColor, Color.parseColor("#FFFFFF"))
-            mPressedColor = getColor(R.styleable.CommonShapeButton_csb_pressedColor, Color.parseColor("#666666"))
-            mStrokeColor = getColor(R.styleable.CommonShapeButton_csb_strokeColor, Color.parseColor("#00000000"))
+            mFillColor = getColor(R.styleable.CommonShapeButton_csb_fillColor, 0xFFFFFFFF.toInt())
+            mPressedColor = getColor(R.styleable.CommonShapeButton_csb_pressedColor, 0xFF666666.toInt())
+            mStrokeColor = getColor(R.styleable.CommonShapeButton_csb_strokeColor, 0)
             mStrokeWidth = getDimensionPixelSize(R.styleable.CommonShapeButton_csb_strokeWidth, 0)
             mCornerRadius = getDimensionPixelSize(R.styleable.CommonShapeButton_csb_cornerRadius, 0)
             mCornerPosition = getInt(R.styleable.CommonShapeButton_csb_cornerPosition, -1)
             mActiveEnable = getBoolean(R.styleable.CommonShapeButton_csb_activeEnable, false)
             mDrawablePosition = getInt(R.styleable.CommonShapeButton_csb_drawablePosition, -1)
-            mStartColor = getColor(R.styleable.CommonShapeButton_csb_startColor, Color.parseColor("#FFFFFF"))
-            mEndColor = getColor(R.styleable.CommonShapeButton_csb_endColor, Color.parseColor("#FFFFFF"))
+            mStartColor = getColor(R.styleable.CommonShapeButton_csb_startColor, 0xFFFFFFFF.toInt())
+            mEndColor = getColor(R.styleable.CommonShapeButton_csb_endColor, 0xFFFFFFFF.toInt())
             mOrientation = getColor(R.styleable.CommonShapeButton_csb_orientation, 0)
             recycle()
         }
@@ -136,7 +135,7 @@ class CommonShapeButton @JvmOverloads constructor(
         // 初始化normal状态
         with(normalGradientDrawable) {
             // 渐变色
-            if (mStartColor != Color.parseColor("#FFFFFF") && mEndColor != Color.parseColor("#FFFFFF")) {
+            if (mStartColor != 0xFFFFFFFF.toInt() && mEndColor != 0xFFFFFFFF.toInt()) {
                 colors = intArrayOf(mStartColor, mEndColor)
                 when (mOrientation) {
                     0 -> orientation = GradientDrawable.Orientation.TOP_BOTTOM
@@ -162,7 +161,7 @@ class CommonShapeButton @JvmOverloads constructor(
                 cornerRadii = getCornerRadiusByPosition()
             }
             // 默认的透明边框不绘制,否则会导致没有阴影
-            if (mStrokeColor != Color.parseColor("#00000000")) {
+            if (mStrokeColor != 0) {
                 setStroke(mStrokeWidth, mStrokeColor)
             }
         }
