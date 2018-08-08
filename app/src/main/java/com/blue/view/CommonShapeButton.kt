@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.ColorStateList
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
@@ -27,74 +26,54 @@ class CommonShapeButton @JvmOverloads constructor(
         defStyleAttr: Int = 0
 ) : AppCompatButton(context, attrs, defStyleAttr) {
 
-    private val TOP_LEFT = 1
-    private val TOP_RIGHT = 2
-    private val BOTTOM_RIGHT = 4
-    private val BOTTOM_LEFT = 8
-
     /**
      * shape模式
      * 矩形（rectangle）、椭圆形(oval)、线形(line)、环形(ring)
      */
-    private var mShapeMode = 0
-
-    /**
-     * 填充颜色
-     */
-    private var mFillColor = 0
-
-    /**
-     * 按压颜色
-     */
-    private var mPressedColor = 0
-
-    /**
-     * 描边颜色
-     */
-    private var mStrokeColor = 0
-
-    /**
-     * 描边宽度
-     */
-    private var mStrokeWidth = 0
-
-    /**
-     * 圆角半径
-     */
-    private var mCornerRadius = 0
+    private var shapeMode = 0
+    
+    private var fillColor = 0
+    
+    private var pressedColor = 0
+    
+    private var strokeColor = 0
+    
+    private var strokeWidth = 0
+    
+    private var cornerRad = 0 // Corner radius conflicts with AppCompatButton.cornerRadius
     /**
      * 圆角位置
      * topLeft、topRight、bottomRight、bottomLeft
      */
-    private var mCornerPosition = -1
+    private var cornerPosition = -1
 
     /**
      * 点击动效
      */
-    private var mActiveEnable = false
+    private var activeEnable = false
 
     /**
      * 起始颜色
      */
-    private var mStartColor = 0
+    private var startColor = 0
 
     /**
      * 结束颜色
      */
-    private var mEndColor = 0
+    private var endColor = 0
 
     /**
      * 渐变方向
      * 0-GradientDrawable.Orientation.TOP_BOTTOM
      * 1-GradientDrawable.Orientation.LEFT_RIGHT
      */
-    private var mOrientation = 0
+    private var orientation = 0
 
     /**
      * drawable位置
      * -1-null、0-left、1-top、2-right、3-bottom
      */
-    private var mDrawablePosition = -1
+    private var drawablePosition = -1
 
     /**
      * 普通shape样式
@@ -115,18 +94,18 @@ class CommonShapeButton @JvmOverloads constructor(
 
     init {
         context.obtainStyledAttributes(attrs, R.styleable.CommonShapeButton).apply {
-            mShapeMode = getInt(R.styleable.CommonShapeButton_csb_shapeMode, 0)
-            mFillColor = getColor(R.styleable.CommonShapeButton_csb_fillColor, Color.parseColor("#FFFFFF"))
-            mPressedColor = getColor(R.styleable.CommonShapeButton_csb_pressedColor, Color.parseColor("#666666"))
-            mStrokeColor = getColor(R.styleable.CommonShapeButton_csb_strokeColor, Color.parseColor("#00000000"))
-            mStrokeWidth = getDimensionPixelSize(R.styleable.CommonShapeButton_csb_strokeWidth, 0)
-            mCornerRadius = getDimensionPixelSize(R.styleable.CommonShapeButton_csb_cornerRadius, 0)
-            mCornerPosition = getInt(R.styleable.CommonShapeButton_csb_cornerPosition, -1)
-            mActiveEnable = getBoolean(R.styleable.CommonShapeButton_csb_activeEnable, false)
-            mDrawablePosition = getInt(R.styleable.CommonShapeButton_csb_drawablePosition, -1)
-            mStartColor = getColor(R.styleable.CommonShapeButton_csb_startColor, Color.parseColor("#FFFFFF"))
-            mEndColor = getColor(R.styleable.CommonShapeButton_csb_endColor, Color.parseColor("#FFFFFF"))
-            mOrientation = getColor(R.styleable.CommonShapeButton_csb_orientation, 0)
+            shapeMode = getInt(R.styleable.CommonShapeButton_csb_shapeMode, 0)
+            fillColor = getColor(R.styleable.CommonShapeButton_csb_fillColor, 0xFFFFFFFF.toInt())
+            pressedColor = getColor(R.styleable.CommonShapeButton_csb_pressedColor, 0xFF666666.toInt())
+            strokeColor = getColor(R.styleable.CommonShapeButton_csb_strokeColor, 0)
+            strokeWidth = getDimensionPixelSize(R.styleable.CommonShapeButton_csb_strokeWidth, 0)
+            cornerRad = getDimensionPixelSize(R.styleable.CommonShapeButton_csb_cornerRadius, 0)
+            cornerPosition = getInt(R.styleable.CommonShapeButton_csb_cornerPosition, -1)
+            activeEnable = getBoolean(R.styleable.CommonShapeButton_csb_activeEnable, false)
+            drawablePosition = getInt(R.styleable.CommonShapeButton_csb_drawablePosition, -1)
+            startColor = getColor(R.styleable.CommonShapeButton_csb_startColor, 0xFFFFFFFF.toInt())
+            endColor = getColor(R.styleable.CommonShapeButton_csb_endColor, 0xFFFFFFFF.toInt())
+            orientation = getColor(R.styleable.CommonShapeButton_csb_orientation, 0)
             recycle()
         }
     }
@@ -136,56 +115,56 @@ class CommonShapeButton @JvmOverloads constructor(
         // 初始化normal状态
         with(normalGradientDrawable) {
             // 渐变色
-            if (mStartColor != Color.parseColor("#FFFFFF") && mEndColor != Color.parseColor("#FFFFFF")) {
-                colors = intArrayOf(mStartColor, mEndColor)
-                when (mOrientation) {
+            if (startColor != 0xFFFFFFFF.toInt() && endColor != 0xFFFFFFFF.toInt()) {
+                colors = intArrayOf(startColor, endColor)
+                when (orientation) {
                     0 -> orientation = GradientDrawable.Orientation.TOP_BOTTOM
                     1 -> orientation = GradientDrawable.Orientation.LEFT_RIGHT
                 }
             }
             // 填充色
             else {
-                setColor(mFillColor)
+                setColor(fillColor)
             }
-            when (mShapeMode) {
+            when (shapeMode) {
                 0 -> shape = GradientDrawable.RECTANGLE
                 1 -> shape = GradientDrawable.OVAL
                 2 -> shape = GradientDrawable.LINE
                 3 -> shape = GradientDrawable.RING
             }
             // 统一设置圆角半径
-            if (mCornerPosition == -1) {
-                cornerRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, mCornerRadius.toFloat(), resources.displayMetrics)
+            if (cornerPosition == -1) {
+                cornerRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, cornerRad.toFloat(), resources.displayMetrics)
             }
             // 根据圆角位置设置圆角半径
             else {
                 cornerRadii = getCornerRadiusByPosition()
             }
             // 默认的透明边框不绘制,否则会导致没有阴影
-            if (mStrokeColor != Color.parseColor("#00000000")) {
-                setStroke(mStrokeWidth, mStrokeColor)
+            if (strokeColor != 0) {
+                setStroke(strokeWidth, strokeColor)
             }
         }
 
         // 是否开启点击动效
-        background = if (mActiveEnable) {
+        background = if (activeEnable) {
             // 5.0以上水波纹效果
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                RippleDrawable(ColorStateList.valueOf(mPressedColor), normalGradientDrawable, null)
+                RippleDrawable(ColorStateList.valueOf(pressedColor), normalGradientDrawable, null)
             }
             // 5.0以下变色效果
             else {
                 // 初始化pressed状态
                 with(pressedGradientDrawable) {
-                    setColor(mPressedColor)
-                    when (mShapeMode) {
+                    setColor(pressedColor)
+                    when (shapeMode) {
                         0 -> shape = GradientDrawable.RECTANGLE
                         1 -> shape = GradientDrawable.OVAL
                         2 -> shape = GradientDrawable.LINE
                         3 -> shape = GradientDrawable.RING
                     }
-                    cornerRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, mCornerRadius.toFloat(), resources.displayMetrics)
-                    setStroke(mStrokeWidth, mStrokeColor)
+                    cornerRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, cornerRad.toFloat(), resources.displayMetrics)
+                    setStroke(strokeWidth, strokeColor)
                 }
 
                 // 注意此处的add顺序，normal必须在最后一个，否则其他状态无效
@@ -205,14 +184,14 @@ class CommonShapeButton @JvmOverloads constructor(
         super.onLayout(changed, left, top, right, bottom)
         // 如果xml中配置了drawable则设置padding让文字移动到边缘与drawable靠在一起
         // button中配置的drawable默认贴着边缘
-        if (mDrawablePosition > -1) {
+        if (drawablePosition > -1) {
             compoundDrawables?.let {
-                val drawable: Drawable? = compoundDrawables[mDrawablePosition]
+                val drawable: Drawable? = compoundDrawables[drawablePosition]
                 drawable?.let {
                     // 图片间距
                     val drawablePadding = compoundDrawablePadding
-                    when (mDrawablePosition) {
-                    // 左右drawable
+                    when (drawablePosition) {
+                        // 左右drawable
                         0, 2 -> {
                             // 图片宽度
                             val drawableWidth = it.intrinsicWidth
@@ -224,7 +203,7 @@ class CommonShapeButton @JvmOverloads constructor(
                             // 图片和文字全部靠在左侧
                             setPadding(0, 0, rightPadding, 0)
                         }
-                    // 上下drawable
+                        // 上下drawable
                         1, 3 -> {
                             // 图片高度
                             val drawableHeight = it.intrinsicHeight
@@ -256,8 +235,8 @@ class CommonShapeButton @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         // 让图片和文字居中
         when {
-            contentWidth > 0 && (mDrawablePosition == 0 || mDrawablePosition == 2) -> canvas.translate((width - contentWidth) / 2, 0f)
-            contentHeight > 0 && (mDrawablePosition == 1 || mDrawablePosition == 3) -> canvas.translate(0f, (height - contentHeight) / 2)
+            contentWidth > 0 && (drawablePosition == 0 || drawablePosition == 2) -> canvas.translate((width - contentWidth) / 2, 0f)
+            contentHeight > 0 && (drawablePosition == 1 || drawablePosition == 3) -> canvas.translate(0f, (height - contentHeight) / 2)
         }
         super.onDraw(canvas)
     }
@@ -306,20 +285,20 @@ class CommonShapeButton @JvmOverloads constructor(
      */
     private fun getCornerRadiusByPosition(): FloatArray {
         val result = floatArrayOf(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f)
-        val cornerRadius = mCornerRadius.toFloat()
-        if (containsFlag(mCornerPosition, TOP_LEFT)) {
+        val cornerRadius = cornerRad.toFloat()
+        if (containsFlag(cornerPosition, TOP_LEFT)) {
             result[0] = cornerRadius
             result[1] = cornerRadius
         }
-        if (containsFlag(mCornerPosition, TOP_RIGHT)) {
+        if (containsFlag(cornerPosition, TOP_RIGHT)) {
             result[2] = cornerRadius
             result[3] = cornerRadius
         }
-        if (containsFlag(mCornerPosition, BOTTOM_RIGHT)) {
+        if (containsFlag(cornerPosition, BOTTOM_RIGHT)) {
             result[4] = cornerRadius
             result[5] = cornerRadius
         }
-        if (containsFlag(mCornerPosition, BOTTOM_LEFT)) {
+        if (containsFlag(cornerPosition, BOTTOM_LEFT)) {
             result[6] = cornerRadius
             result[7] = cornerRadius
         }
@@ -332,4 +311,12 @@ class CommonShapeButton @JvmOverloads constructor(
     private fun containsFlag(flagSet: Int, flag: Int): Boolean {
         return flagSet or flag == flagSet
     }
+
+    private companion object {
+        val TOP_LEFT = 1
+        val TOP_RIGHT = 2
+        val BOTTOM_RIGHT = 4
+        val BOTTOM_LEFT = 8
+    }
+
 }
