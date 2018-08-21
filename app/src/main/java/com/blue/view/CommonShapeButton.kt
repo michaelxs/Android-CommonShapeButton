@@ -12,7 +12,6 @@ import android.graphics.drawable.StateListDrawable
 import android.os.Build
 import android.support.v7.widget.AppCompatButton
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.Gravity
 import com.blue.R
 
@@ -154,7 +153,7 @@ class CommonShapeButton @JvmOverloads constructor(
             }
             // 统一设置圆角半径
             if (mCornerPosition == -1) {
-                cornerRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, mCornerRadius.toFloat(), resources.displayMetrics)
+                cornerRadius = mCornerRadius.toFloat()
             }
             // 根据圆角位置设置圆角半径
             else {
@@ -183,7 +182,7 @@ class CommonShapeButton @JvmOverloads constructor(
                         2 -> shape = GradientDrawable.LINE
                         3 -> shape = GradientDrawable.RING
                     }
-                    cornerRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, mCornerRadius.toFloat(), resources.displayMetrics)
+                    cornerRadius = mCornerRadius.toFloat()
                     setStroke(mStrokeWidth, mStrokeColor)
                 }
 
