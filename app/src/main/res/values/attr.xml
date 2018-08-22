@@ -1,31 +1,43 @@
 <resources>
     <declare-styleable name="CommonShapeButton">
+        <!--shape模式-->
         <attr name="csb_shapeMode" format="enum">
             <enum name="rectangle" value="0" />
             <enum name="oval" value="1" />
             <enum name="line" value="2" />
             <enum name="ring" value="3" />
         </attr>
+        <!--填充颜色-->
         <attr name="csb_fillColor" format="color" />
+        <!--按压颜色-->
         <attr name="csb_pressedColor" format="color" />
+        <!--描边颜色-->
         <attr name="csb_strokeColor" format="color" />
+        <!--描边宽度-->
         <attr name="csb_strokeWidth" format="dimension" />
+        <!--圆角大小-->
         <attr name="csb_cornerRadius" format="dimension" />
+        <!--圆角位置-->
         <attr name="csb_cornerPosition">
             <flag name="topLeft" value="1" />
             <flag name="topRight" value="2" />
             <flag name="bottomRight" value="4" />
             <flag name="bottomLeft" value="8" />
         </attr>
+        <!--是否开启动效-->
         <attr name="csb_activeEnable" format="boolean" />
+        <!--drawable位置-->
         <attr name="csb_drawablePosition" format="enum">
             <enum name="left" value="0" />
             <enum name="top" value="1" />
             <enum name="right" value="2" />
             <enum name="bottom" value="3" />
         </attr>
+        <!--渐变开始颜色-->
         <attr name="csb_startColor" format="color" />
+        <!--渐变结束颜色-->
         <attr name="csb_endColor" format="color" />
+        <!--渐变方向-->
         <attr name="csb_orientation" format="enum">
             <enum name="TOP_BOTTOM" value="0" />
             <enum name="LEFT_RIGHT" value="1" />
