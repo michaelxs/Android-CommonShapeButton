@@ -53,6 +53,8 @@
                 android:text="文本样式+填充颜色+描边"
                 android:textColor="#fff"
                 app:csb_activeEnable="true"
+                app:csb_cornerPosition="bottomRight|topRight"
+                app:csb_cornerRadius="50dp"
                 app:csb_fillColor="#00bc71"
                 app:csb_strokeColor="#000"
                 app:csb_strokeWidth="1dp" />
