@@ -211,6 +211,7 @@ public class CommonShapeButton extends AppCompatButton {
                 stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, pressedGradientDrawable);
                 // 设置normal状态
                 stateListDrawable.addState(new int[]{}, normalGradientDrawable);
+                setBackground(stateListDrawable);
             }
         } else {
             setBackground(normalGradientDrawable);
