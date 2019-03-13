@@ -247,7 +247,9 @@ class CommonShapeButton @JvmOverloads constructor(
         // 内容居中
         gravity = Gravity.CENTER
         // 可点击
-        isClickable = true
+        if (mActiveEnable) {
+            isClickable = true
+        }
         changeTintContextWrapperToActivity()
     }
 

@@ -261,7 +261,9 @@ public class CommonShapeButton extends AppCompatButton {
         // 内容居中
         setGravity(Gravity.CENTER);
         // 可点击
-        setClickable(true);
+        if (mActiveEnable) {
+            setClickable(true);
+        }
         changeTintContextWrapperToActivity();
     }
 
