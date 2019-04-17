@@ -14,7 +14,6 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.Gravity;
 
 import com.blue.R;
@@ -173,7 +172,7 @@ public class CommonShapeButton extends AppCompatButton {
         }
         // 统一设置圆角半径
         if (mCornerPosition == -1) {
-            normalGradientDrawable.setCornerRadius(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, mCornerRadius, getResources().getDisplayMetrics()));
+            normalGradientDrawable.setCornerRadius(mCornerRadius);
         }
         // 根据圆角位置设置圆角半径
         else {
@@ -203,7 +202,7 @@ public class CommonShapeButton extends AppCompatButton {
                 } else if (mShapeMode == 3) {
                     pressedGradientDrawable.setShape(GradientDrawable.RING);
                 }
-                pressedGradientDrawable.setCornerRadius(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, mCornerRadius, getResources().getDisplayMetrics()));
+                pressedGradientDrawable.setCornerRadius(mCornerRadius);
                 pressedGradientDrawable.setStroke(mStrokeWidth, mStrokeColor);
 
                 // 注意此处的add顺序，normal必须在最后一个，否则其他状态无效
